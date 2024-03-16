@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Description</title>
+    <style>
+        /* CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .decoration {
+            border-top: 2px dashed #ccc;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+
+        .ending-message {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .emoji-container {
+            display: inline-block;
+        }
+
+        .emoji {
+            display: inline-block;
+            animation: moveAndRotate 1s infinite linear;
+            margin-right: 5px;
+        }
+
+        @keyframes moveAndRotate {
+            from {
+                transform: rotate(0deg) translateY(0);
+            }
+            to {
+                transform: rotate(360deg) translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration"></div>
+
+    <div>
+        <p><strong id="subject"></strong></p>
+        <p>Hey <span id="friendName"></span>,</p>
+        <p id="message"></p>
+    </div>
+
+    <div class="ending-message" style="display: none;">
+        <p id="ending-message">Thank you for taking the time to read this description. Have a wonderful day!</p>
+        <div class="emoji-container" id="movingEmojis"></div>
+    </div>
+
+    <div class="decoration"></div>
+
+    <script>
+        window.onload = function() {
+            askForName();
+        };
+
+        function askForName() {
+            const name = prompt("Hajur ko naam bhandinu hola:");
+            if (name && name.toLowerCase() === "punika") {
+                loadFriendDescription();
+            } else {
+                alert("ERROR, what are you doing here? Who are child? You will never get the chance to enter without the proper Code. Go back to sleep zzzzzzzz..");
+            }
+        }
+
+        function loadFriendDescription() {
+            const friendName = "Punika Gurung";
+            const subject = "CASUAL DESCRIBING ABOUT YOU (as per your request)";
+            const message = `I just wanted to take a moment to tell you how much I admire your dynamic personality. Your energy and outgoing nature light up any room you're in. Your talent for voice acting and storytelling is truly remarkable, and it's inspiring to see how you bring characters to life with your expressive voice and imaginative storytelling🎭📖. Not only are you incredibly talented in voice acting and storytelling, but your dedication to fitness and working out is also admirable. Your commitment to staying active and healthy shows your strength and determination in all aspects of life. It's inspiring to see how you balance your passion for creativity with your love for fitness💪🏋️‍♀️. You truly embody the definition of a well-rounded individual, and we're lucky to have such an inspiring friend in our circle🌟. You're such a vibrant and creative force 😊. Your extroverted nature brings so much joy and energy to every gathering, and your ability to connect with others is truly remarkable🎉. You're the life of the party, always bringing laughter and fun wherever you go. Keep grinding as it is and NEVER GIVE UP!! ✌🏻✌🏻✌🏻 `;
+            let subjectIndex = 0;
+            let friendIndex = 0;
+            let messageIndex = 0;
+
+            function typeSubject() {
+                document.getElementById("subject").textContent += subject.charAt(subjectIndex);
+                subjectIndex++;
+                if (subjectIndex < subject.length) {
+                    setTimeout(typeSubject, 90);
+                } else {
+                    setTimeout(typeFriendName, 1000);
+                }
+            }
+
+            function typeFriendName() {
+                document.getElementById("friendName").textContent += friendName.charAt(friendIndex);
+                friendIndex++;
+                if (friendIndex < friendName.length) {
+                    setTimeout(typeFriendName, 130);
+                } else {
+                    setTimeout(typeMessage, 1000);
+                }
+            }
+
+            function typeMessage() {
+                document.getElementById("message").innerHTML += message.charAt(messageIndex);
+                messageIndex++;
+                if (messageIndex < message.length) {
+                    setTimeout(typeMessage, 40);
+                } else {
+                    setTimeout(function() {
+                        document.querySelector('.ending-message').style.display = 'block';
+                        animateEmojis();
+                    }, message.length * 40);
+                }
+            }
+
+            function animateEmojis() {
+                const emojis = ['😴', '😴', '😴'];
+                const emojiContainer = document.getElementById("movingEmojis");
+                emojis.forEach(function(emoji, index) {
+                    setTimeout(function() {
+                        emojiContainer.innerHTML += `<span class="emoji">${emoji}</span>`;
+                    }, index * 1000);
+                });
+            }
+
+            typeSubject();
+        }
+    </script>
+</body>
+</html>
